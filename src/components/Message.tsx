@@ -8,11 +8,11 @@ import { Link } from "react-router-dom";
 
 interface IMessageProps {
   author: string;
-  heading: string;
+  subject: string;
   id: string;
 }
 
-export default function Message({ heading, author, id }: IMessageProps) {
+export default function Message({ subject, author, id }: IMessageProps) {
   return (
     <ListItem alignItems="flex-start" sx={{ cursor: "pointer" }}>
       <ListItemAvatar>
@@ -20,7 +20,7 @@ export default function Message({ heading, author, id }: IMessageProps) {
       </ListItemAvatar>
       <Link to={"/messages/" + id}>
         <ListItemText
-          primary={heading}
+          primary={subject}
           secondary={
             <React.Fragment>
               <Typography
