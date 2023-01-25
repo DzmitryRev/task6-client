@@ -1,6 +1,12 @@
-export type IMessage = Readonly<{
+export type IMessage = {
   author: string;
   subject: string;
-  message: string;
+  body: string;
   _id: string;
-}>;
+};
+
+export type IMessageFor = {
+  recipient: string;
+  subject: string;
+  body: string;
+};

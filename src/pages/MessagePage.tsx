@@ -3,16 +3,17 @@ import React, { useContext, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import { IMessage } from "../models/message-model";
 
-export default function MessagePage() {
-  const { isAuth, messages } = useContext(AuthContext);
+export default function MessagePage({ messages }: { messages: IMessage[] }) {
+  const { isAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAuth) {
       navigate("/");
     }
   }, [isAuth]);
-  
+
   const { id } = useParams();
 
   const message = messages.find((message) => message._id === id);
@@ -28,7 +29,7 @@ export default function MessagePage() {
             {message?.author}
           </Typography>
           <Typography variant="body1" gutterBottom>
-            {message?.message}
+            {message?.body}
           </Typography>
         </>
       ) : (

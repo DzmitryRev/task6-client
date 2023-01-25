@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Box, Typography } from "@mui/material";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import LoginPage from "./pages/LoginPage";
 import MessagePage from "./pages/MessagePage";
@@ -8,12 +8,12 @@ import MessagesPage from "./pages/MessagesPage";
 import SendMessagePage from "./pages/SendMessagePage";
 import Divider from "@mui/material/Divider";
 import AuthContext from "./context/AuthContext";
-import { IMessage } from "./models/message-model";
+import useMessages from "./hooks/useMessages";
 
 function App() {
   const [isAuth, setIsAuth] = useState<boolean>(false);
-  const [name, setName] = useState<string | null>(null);
-  const [messages, setMessages] = useState<IMessage[]>([]);
+  const [name, setName] = useState<string>("");
+  const { messages } = useMessages(name);
 
   const authContextProviderValue = useMemo(
     () => ({
@@ -21,11 +21,11 @@ function App() {
       setIsAuth,
       name,
       setName,
-      messages,
-      setMessages,
     }),
     [isAuth, setIsAuth]
   );
+
+  console.log("render");
 
   return (
     <div className="App">
@@ -43,8 +43,8 @@ function App() {
         <AuthContext.Provider value={authContextProviderValue}>
           <Routes>
             <Route index path="/" element={<LoginPage />} />
-            <Route path="/messages" element={<MessagesPage />} />
-            <Route path="/messages/:id" element={<MessagePage />} />
+            <Route path="/messages" element={<MessagesPage messages={messages} />} />
+            <Route path="/messages/:id" element={<MessagePage messages={messages} />} />
             <Route path="/send" element={<SendMessagePage />} />
           </Routes>
         </AuthContext.Provider>

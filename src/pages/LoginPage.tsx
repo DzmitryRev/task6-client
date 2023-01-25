@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import MailService from "../services/mailSevice";
 import { useFormik } from "formik";
@@ -8,7 +8,7 @@ import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
-  const { isAuth, setName, setIsAuth, setMessages } = useContext(AuthContext);
+  const { isAuth, setName, setIsAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (isAuth) {
@@ -21,11 +21,8 @@ export default function LoginPage() {
     validationSchema: loginValidationSchema,
     onSubmit: (values) => {
       const { name } = values;
-      MailService.getMessages(name).then((res) => {
-        setName(res.data.name);
-        setMessages(res.data.messages);
-        setIsAuth(true);
-      });
+      setName(name);
+      setIsAuth(true);
     },
   });
 
@@ -40,7 +37,7 @@ export default function LoginPage() {
           name="name"
           label={formik.touched.name ? formik.touched.name && formik.errors.name : "Name"}
           value={formik.values.name}
-          error={formik.touched.name && Boolean(formik.errors.name)}
+          error={formik.touched.name && !!formik.errors.name}
           onChange={formik.handleChange}
           autoComplete="off"
         />

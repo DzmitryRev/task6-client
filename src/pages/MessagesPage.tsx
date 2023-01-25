@@ -3,17 +3,16 @@ import { Box, Typography } from "@mui/material";
 import MessageList from "../components/MessageList";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { IMessage } from "../models/message-model";
 
-export default function MessagesPage() {
-  const { isAuth, messages, name } = useContext(AuthContext);
+export default function MessagesPage({ messages }: { messages: IMessage[] }) {
+  const { isAuth, name } = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAuth) {
       navigate("/");
     }
   }, [isAuth]);
-
-  // load messages every 5 sec
 
   return (
     <Box sx={{ width: "600px", p: 2 }}>

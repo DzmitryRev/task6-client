@@ -5,7 +5,7 @@ export const loginValidationSchema = yup.object({
 });
 
 export const sendMessageValidationSchema = yup.object({
-  recipient: yup.string().required("Name is required"),
-  subject: yup.string().required("Name is required"),
-  body: yup.string().required("Name is required"),
+  recipient: yup.string().required("Resipient is required"),
+  subject: yup.string().required("Subject is required"),
+  body: yup.string().required("Body is required"),
 });
