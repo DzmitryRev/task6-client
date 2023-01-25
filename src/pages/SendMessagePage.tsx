@@ -57,6 +57,7 @@ export default function SendMessagePage() {
           id="free-solo-demo"
           freeSolo
           options={names.data}
+          onSelect={formik.handleChange}
           renderInput={(params) => (
             <TextField
               {...params}
