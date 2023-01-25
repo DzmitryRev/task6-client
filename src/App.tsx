@@ -25,8 +25,6 @@ function App() {
     [isAuth, setIsAuth]
   );
 
-  console.log("render");
-
   return (
     <div className="App">
       <Box sx={{ px: 5, py: 2, display: "flex", justifyContent: "space-between" }}>

@@ -3,7 +3,7 @@ import { IMessage } from "../models/message-model";
 import { IUser } from "../models/user-model";
 
 class MailService {
-  static URL = "http://localhost:3006/api/";
+  static URL = "https://task6-server.onrender.com/api/";
 
   static getMessages(name: string) {
     return axios.get<IUser>(`${this.URL}messages/${name}`);
